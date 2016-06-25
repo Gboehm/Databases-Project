@@ -30,6 +30,10 @@ else:
             print("Not Found")
             continue
 
+    cursor.execute("SELECT userid FROM administrators WHERE userid = %s", (id,))
+    admin = cursor.fetchone()
+
+
     print("Commands:")
 
     commands = ["View",
@@ -43,6 +47,15 @@ else:
         operation = input("Please input a command\n")
 
         if operation.lower() == 'view':
+            if admin:
+                while 1:
+                    op = input("Type yes to view change requests, or no to view streets and intersections\n")
+
+                    if op.lower() == 'yes' or op.lower() == 'no':
+                        break
+                #if op.lower() == 'yes':
+                    #View change requests function here
+
 
             View(cursor)
 
