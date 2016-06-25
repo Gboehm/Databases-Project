@@ -4,7 +4,7 @@ def updaterequest(cursor, id, placeid, which, results):
 
     if which == 0:
         while 1:
-            featid = "Please input the feature id from the above list you would like to update:"
+            featid = input("Please input the feature id from the above list you would like to update:\n")
             isafeat = 0
             for result in results:
                 if result[4] == featid:
