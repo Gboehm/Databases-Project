@@ -1,4 +1,5 @@
 INSERT INTO `projectdb`.`users` (`username`, `password`) VALUES ('Gunnar', '12345');
+INSERT INTO `projectdb`.`users` (`username`, `password`) VALUES ('Eli', '23456');
 INSERT INTO `projectdb`.`administrators` (`userid`) VALUES ('1');
 INSERT INTO `projectdb`.`cities` (`cityname`) VALUES ('Boston');
 INSERT INTO `projectdb`.`streets` (`streetname`,`cityid`) VALUES ('Comm Ave','1');
