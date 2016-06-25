@@ -18,10 +18,10 @@ def newrequest(cursor, id, placeid, which):
                 cursor.execute(new, (id, "new", placeid, start, desc))
         else:
             new = ("INSERT INTO changerequest "
-                   "(userid, changetype, streetid, startaddress, endaddress, description) "
+                   "(userid, changetype, streetid, description) "
                    "VALUES (%s, %s, %s, %s)")
             cursor.execute(new, (id, "new", placeid, desc))
-    elif which==1:
+    elif which == 1:
         desc = input('Please input the bike feature description:')
         new = ("INSERT INTO changerequest "
                "(userid, changetype, intersectionid, description) "

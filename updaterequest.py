@@ -12,21 +12,21 @@ def changerequest(cursor, id, placeid, which):
                 new = ("INSERT INTO changerequest "
                        "(userid, featureid, changetype, streetid, startaddress, endaddress, description) "
                        "VALUES (%s, %s, %s, %s, %s, %s, %s)")
-                cursor.execute(new, (id, featid, "update", streetid, start, end, desc))
+                cursor.execute(new, (id, featid, "update", placeid, start, end, desc))
             else:
                 new = ("INSERT INTO changerequest "
                        "(userid, featureid, changetype, streetid, startaddress,description) "
                        "VALUES (%s, %s, %s, %s, %s, %s)")
-                cursor.execute(new, (id, featid, "update", streetid, start, desc))
+                cursor.execute(new, (id, featid, "update", placeid, start, desc))
         else:
             new = ("INSERT INTO changerequest "
                    "(userid, featureid, changetype, streetid, startaddress, endaddress, description) "
                    "VALUES (%s, %s, %s, %s, %s)")
-            cursor.execute(new, (id, featid, "update", streetid, desc))
+            cursor.execute(new, (id, featid, "update", placeid, desc))
     elif which == 1:
         featid = "Please input the feature id from the above list you would like to update:"
         desc = input('Please input updated bike feature description:')
         new = ("INSERT INTO changerequest "
                "(userid, featureid, changetype,intersectionid, description) "
                "VALUES (%s, %s, %s, %s, %s)")
-        cursor.execute(new, (id, featid, "update", streetid, desc))
+        cursor.execute(new, (id, featid, "update", placeid, desc))

@@ -15,17 +15,7 @@ def changerequest(cursor, id):
                         "WHERE s.streetname = %s")
 
                 cursor.execute(stmt, (street,))
-                result = cursor.fetchone()
-                if result:
-                    streetid = result[5]
-                    print("feature id: ", result[4])
-                    if result[2]:
-                        if result[3]:
-                            print(result[0], "has a", result[1], "from", result[2], "to", result[3])
-                        else:
-                            print(result[0], "has a", result[1], "starting at", result[2])
-                    else:
-                        print(result[0], "has a", result[1])
+                if cursor.with_rows():
                     break
 
             for result in cursor:
@@ -42,14 +32,14 @@ def changerequest(cursor, id):
                 type = input("Would you like to make a new feature, update an existing feature, or delete a feature?\n",
                              "input 'new', 'update', or 'delete")
                 if type.lower() == 'new':
-
+                    newrequest(cursor,id,streetid,0)
                     break
 
                 if type.lower() == 'update':
                     updaterequest(cursor,id,streetid,0)
                     break
                 if type.lower() == 'delete':
-
+                    deleterequest(cursor,id,streetid,0)
                     break
                 print("Not a valid input \n")
         if temp == "intersection":
