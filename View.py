@@ -1,5 +1,6 @@
 from mysql.connector import cursor
 
+
 def View(cursor):
     while 1:
         type = input("View a Street or an Intersection?\n")
@@ -29,6 +30,16 @@ def View(cursor):
                         else:
                             print(result[0], "has a", result[1])
                         break
+                    else:
+                        print("No features found on", street)
+
+                        while 1:
+                            op = input("Search again? Yes or No")
+
+                            if op.lower() == 'yes' or op.lower() == 'no':
+                                break
+                    if op and op.lower() == 'no':
+                        break
 
                 for result in cursor:
                     if result[2]:
@@ -39,10 +50,6 @@ def View(cursor):
                     else:
                         print(result[0], "has a", result[1])
 
-                temp = input("View again? Yes or No?\n")
-
-                if temp.lower() == 'no':
-                    break
             elif operation.lower() == "incidents":
                 while 1:
                     street = input("Please input a street name.\n")
@@ -85,8 +92,52 @@ def View(cursor):
 
 
         elif type.lower() == 'intersection':
-            street1 = input("Please input a cross street name.\n")
-            street2 = input("Please input the other cross street name.\n")
+            while 1:
+                street1 = input("Please input a cross street name.\n")
+                street2 = input("Please input the other cross street name.\n")
 
-            stmt = ("SELECT f.description, ")
+                stmt = ("SELECT DISTINCT f.description "
+                    "FROM features f "
+                    "INNER JOIN intersections i "
+                    "ON f.intersectionid = i.intersectionid "
+                    "INNER JOIN streets s "
+                    "ON i.street1 = s.streetid "
+                    "OR i.street2 = s.streetid "
+                    "WHERE s.streetname = %s AND "
+                    "i.intersectionid IN "
+                    "(SELECT i.intersectionid "
+                    " FROM intersections i "
+                    " INNER JOIN streets s "
+                    " ON i.street1 = s.streetid "
+                    " OR i.street2 = s.streetid "
+                    " WHERE s.streetname = %s) "
+                    )
+
+                cursor.execute(stmt, (street1, street2))
+                result = cursor.fetchone()
+
+                if result:
+                    print("The intersection of", street1, "and", street2, "has the following:")
+                    print(result[0])
+                    break
+                else:
+                    print("No features found on the intersection of", street1, "and", street2)
+
+                    while 1:
+                        op = input("Search again? Yes or No\n")
+
+                        if op.lower() == 'no' or op.lower() == 'yes':
+                            break
+                if op and op.lower() == 'no':
+                    break
+
+        for result in cursor:
+            print(result[0])
+
+        while 1:
+            op = input("View again? Yes or No?\n")
+
+            if op.lower() == 'yes' or op.lower() == 'no':
+                break
+        if op.lower() == 'no':
             break

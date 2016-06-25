@@ -19,11 +19,12 @@ else:
         username = input("Please input your username.\n")
         password = input("Please input your password.\n")
 
-        cursor.execute("SELECT username FROM users WHERE username=%s AND password=%s", (username, password))
+        cursor.execute("SELECT userid FROM users WHERE username=%s AND password=%s", (username, password))
 
         result = cursor.fetchone()
 
         if result:
+            id = result[0]
             break
         else:
             print("Not Found")
@@ -35,9 +36,10 @@ else:
                 "Insert",
                 ]
 
-    for command in commands:
-        print(command)
     while 1:
+        for command in commands:
+            print(command)
+
         operation = input("Please input a command\n")
 
         if operation.lower() == 'view':
