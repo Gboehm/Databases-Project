@@ -5,7 +5,7 @@ from deleterequest import deleterequest
 from newRequest import newrequest
 from updaterequest import updaterequest
 
-def changerequest(cursor, id):
+def changerequest(cnx, cursor, id):
     while 1:
         temp = input("Changing street or intersection? \n")
 
@@ -39,14 +39,14 @@ def changerequest(cursor, id):
                 type = input("Would you like to make a new feature, update an existing feature, or delete a feature?\n"
                              "input 'new', 'update', or 'delete\n")
                 if type.lower() == 'new':
-                    newrequest(cursor,id,streetid,0)
+                    newrequest(cnx, cursor,id,streetid,0)
                     break
 
                 if type.lower() == 'update':
-                    updaterequest(cursor,id,streetid,0, results)
+                    updaterequest(cnx, cursor,id,streetid,0, results)
                     break
                 if type.lower() == 'delete':
-                    deleterequest(cursor,id,streetid,0, results)
+                    deleterequest(cnx, cursor,id,streetid,0, results)
                     break
                 print("Not a valid input \n")
             type = input("Would you like to continue changing? Yes or No\n")
@@ -81,7 +81,7 @@ def changerequest(cursor, id):
                 else:
                     print("No features found on the intersection of", street1, "and", street2)
                     print("\n Can only make new features for this intersection")
-                    newrequest(cursor, id, interid, 1)
+                    newrequest(cnx, cursor, id, interid, 1)
                     return
             results = cursor.fetchall()
             for result in results:
@@ -91,13 +91,13 @@ def changerequest(cursor, id):
                 type = input("Would you like to make a new feature, update an existing feature, or delete a feature?\n"
                              "input 'new', 'update', or 'delete\n")
                 if type.lower() == 'new':
-                    newrequest(cursor, id, interid, 1)
+                    newrequest(cnx, cursor, id, interid, 1)
                     break
                 if type.lower() == 'update':
-                    updaterequest(cursor, id, interid, 1, results)
+                    updaterequest(cnx, cursor, id, interid, 1, results)
                     break
                 if type.lower() == 'delete':
-                    deleterequest(cursor, id, interid,1, results)
+                    deleterequest(cnx, cursor, id, interid,1, results)
                     break
                 else: print("Not a valid input \n")
             type = input("Would you like to continue changing? Yes or No")

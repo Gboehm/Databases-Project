@@ -1,13 +1,13 @@
 from mysql.connector import cursor
 
-def updaterequest(cursor, id, placeid, which, results):
+def updaterequest(cnx, cursor, id, placeid, which, results):
 
     if which == 0:
         while 1:
             featid = input("Please input the feature id from the above list you would like to update:\n")
             isafeat = 0
             for result in results:
-                if result[4] == featid:
+                if result[4] == int(featid):
                     isafeat = 1
             if isafeat:
                 break
@@ -29,9 +29,10 @@ def updaterequest(cursor, id, placeid, which, results):
                 cursor.execute(new, (id, featid, "update", placeid, start, desc))
         else:
             new = ("INSERT INTO change_requests "
-                   "(userid, featureid, changetype, streetid, startaddress, endaddress, description) "
+                   "(userid, featureid, changetype, streetid, description) "
                    "VALUES (%s, %s, %s, %s, %s)")
             cursor.execute(new, (id, featid, "update", placeid, desc))
+        cnx.commit()
         print("Change request submitted")
     elif which == 1:
         while 1:
@@ -49,4 +50,5 @@ def updaterequest(cursor, id, placeid, which, results):
                "(userid, featureid, changetype,intersectionid, description) "
                "VALUES (%s, %s, %s, %s, %s)")
         cursor.execute(new, (id, featid, "update", placeid, desc))
+        cnx.commit()
         print("Change request submitted")

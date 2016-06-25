@@ -1,6 +1,6 @@
 from mysql.connector import cursor
 
-def newrequest(cursor, id, placeid, which):
+def newrequest(cnx, cursor, id, placeid, which):
     if which == 0:
         start = input('If there is a start address, input it. Otherwise press enter\n')
         end = input('If there is an end address, input it. Otherwise press enter\n')
@@ -16,12 +16,13 @@ def newrequest(cursor, id, placeid, which):
                        "(userid, changetype, streetid, startaddress,description) "
                        "VALUES (%s, %s, %s, %s, %s)")
                 cursor.execute(new, (id, "new", placeid, start, desc))
+                cnx.commit()
         else:
             new = ("INSERT INTO change_requests "
                    "(userid, changetype, streetid, description) "
                    "VALUES (%s, %s, %s, %s)")
             cursor.execute(new, (id, "new", placeid, desc))
-        print(id, ", new, ", placeid, ", ", desc)
+        cnx.commit()
         print("Change request submitted")
 
     elif which == 1:
@@ -30,5 +31,6 @@ def newrequest(cursor, id, placeid, which):
                "(userid, changetype, intersectionid, description) "
                "VALUES (%s, %s, %s, %s)")
         cursor.execute(new, (id, "new", placeid, desc))
+        cnx.commit()
         print("Change request submitted")
 

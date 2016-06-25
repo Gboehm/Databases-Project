@@ -1,7 +1,7 @@
 from executeRequest import executeRequest
 
 
-def viewChangeRequests(cursor, adminID):
+def viewChangeRequests(cnx, cursor, adminID):
     while 1:
         stmt = ("SELECT COUNT(*)"
                 "FROM change_requests "
@@ -89,7 +89,7 @@ def viewChangeRequests(cursor, adminID):
                             break
                     if op.lower() == 'yes':
                         request = results[1:10]
-                        executeRequest(cursor, request, adminID)
+                        executeRequest(cnx, cursor, request, adminID)
         elif op.lower() == 'new':
             while 1:
                 stmt = ("SELECT u.username, c.* "
@@ -140,7 +140,7 @@ def viewChangeRequests(cursor, adminID):
                         break
                 if op.lower() == 'yes':
                     request = results[1:10]
-                    executeRequest(cursor, request, adminID)
+                    executeRequest(cnx, cursor, request, adminID)
                 while 1:
                     op = input("View another request? Yes or No\n")
 

@@ -1,4 +1,4 @@
-def executeRequest(cursor, request, adminID):
+def executeRequest(cnx, cursor, request, adminID):
     if request[3].lower() == 'delete':
         stmt = ("DELETE FROM features f "
                 "WHERE EXISTS "
@@ -9,11 +9,13 @@ def executeRequest(cursor, request, adminID):
                 " WHERE f.featureid = %s) "
                 )
         cursor.execute(stmt, (request[2],))
+        cnx.commit()
 
         stmt = ("UPDATE change_requests "
                 "SET approved = %s "
                 "WHERE requestid = %s")
         cursor.execute(stmt, (adminID, request[0]))
+        cnx.commit()
 
     elif request[3].lower() == 'new':
         if request[4]:
@@ -24,29 +26,34 @@ def executeRequest(cursor, request, adminID):
                             "VALUES (%s, %s, %s, %s)"
                             )
                     cursor.execute(stmt, (request[4], request[6], request[7], request[8]))
+                    cnx.commit()
                 else:
                     stmt = ("INSERT INTO features "
                             "(streetid, startaddress, description) "
                             "VALUES (%s, %s, %s)"
                             )
                     cursor.execute(stmt, (request[4], request[6], request[8]))
+                    cnx.commit()
             else:
                 stmt = ("INSERT INTO features "
                         "(streetid, description) "
                         "VALUES (%s, %s)"
                         )
                 cursor.execute(stmt, (request[4], request[8]))
+                cnx.commit()
         else:
             stmt = ("INSERT INTO features "
                     "(intersectionid, description) "
                     "VALUES (%s, %s)"
                     )
             cursor.execute(stmt, (request[5], request[8]))
+            cnx.commit()
 
         stmt = ("UPDATE change_requests "
                 "SET approved = %s "
                 "WHERE requestid = %s")
         cursor.execute(stmt, (adminID, request[0]))
+        cnx.commit()
 
     elif request[3].lower() == 'update':
         if request[6]:
@@ -55,20 +62,24 @@ def executeRequest(cursor, request, adminID):
                     "WHERE featureid = %s")
 
             cursor.execute(stmt, (request[6], request[2]))
+            cnx.commit()
         if request[7]:
             stmt = ("UPDATE features "
                     "SET endaddress = %s "
                     "WHERE featureid = %s")
 
             cursor.execute(stmt, (request[7], request[2]))
+            cnx.commit()
         if request[8]:
             stmt = ("UPDATE features "
                     "SET description = %s "
                     "WHERE featureid = %s")
 
             cursor.execute(stmt, (request[8], request[2]))
+            cnx.commit()
 
         stmt = ("UPDATE change_requests "
                 "SET approved = %s "
                 "WHERE requestid = %s")
         cursor.execute(stmt, (adminID, request[0]))
+        cnx.commit()

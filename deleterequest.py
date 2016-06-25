@@ -1,6 +1,6 @@
 from mysql.connector import cursor
 
-def deleterequest(cursor, id, placeid, which, results):
+def deleterequest(cnx, cursor, id, placeid, which, results):
     if which == 0:
         while 1:
             featid = input("Please input the feature id from the above list you would like to update:\n")
@@ -16,6 +16,7 @@ def deleterequest(cursor, id, placeid, which, results):
                   "(userid, featureid, changetype, streetid) "
                   "VALUES (%s, %s, %s, %s)")
         cursor.execute(delete, (id, featid, "delete", placeid))
+        cnx.commit()
         print("Change request submitted")
     elif which == 1:
         while 1:
@@ -32,4 +33,5 @@ def deleterequest(cursor, id, placeid, which, results):
                   "(userid, featureid, changetype, intersectionid) "
                   "VALUES (%s, %s, %s, %s)")
         cursor.execute(delete, (id, featid, "delete", placeid))
+        cnx.commit()
         print("Change request submitted")

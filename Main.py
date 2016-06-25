@@ -57,7 +57,7 @@ else:
                     if op.lower() == 'yes' or op.lower() == 'no':
                         break
                 if op.lower() == 'yes':
-                    viewChangeRequests(cursor, id)
+                    viewChangeRequests(cnx, cursor, id)
 
                     while 1:
                         temp = input("Perform another operation? Yes or No\n")
@@ -75,7 +75,7 @@ else:
 
 
         elif operation.lower() == 'change':
-            changerequest(cursor, id)
+            changerequest(cnx, cursor, id)
 
         while 1:
             temp = input("Perform another operation?\n")
@@ -84,5 +84,6 @@ else:
                 break
 
         if temp.lower() == "no":
+            cnx.commit()
             cnx.close()
             sys.exit()
