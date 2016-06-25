@@ -27,9 +27,9 @@ def changerequest(cnx, cursor, id):
                         "WHERE s.streetname = %s")
 
             cursor.execute(stmt, (street,))
-            if cursor.with_rows:
+            results = cursor.fetchall()
+            if len(results) > 0:
                 hasfeats = 1
-                results = cursor.fetchall()
                 for result in results:
                     streetid = result[5]
                     print("feature id: ", result[4])
@@ -65,7 +65,7 @@ def changerequest(cnx, cursor, id):
                 street1 = input("Please input a cross street name.\n")
                 street2 = input("Please input the other cross street name.\n")
 
-                stmt = ("SELECT i.intersectionid"
+                stmt = ("SELECT i.intersectionid "
                         "FROM intersections i "
                         "INNER JOIN streets s "
                         "ON i.street1 = s.streetid "
@@ -81,6 +81,7 @@ def changerequest(cnx, cursor, id):
                         )
                 cursor.execute(stmt, (street1, street2))
                 if cursor.with_rows:
+                    interid = cursor.fetchone()[0]
                     break
                 else: "Not a valid intersection, try  again"
 
@@ -103,12 +104,11 @@ def changerequest(cnx, cursor, id):
                     )
 
             cursor.execute(stmt, (street1, street2))
-            if cursor.with_rows:
+            results = cursor.fetchall()
+            if len(results) > 0:
                 hasfeats = 1
                 print("The intersection of", street1, "and", street2, "has the following: \n")
-                results = cursor.fetchall()
                 for result in results:
-                    interid = result[1]
                     print(result[0])
             else:
                 hasfeats = 0
