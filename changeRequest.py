@@ -1,5 +1,10 @@
 from mysql.connector import cursor
-results = null
+results = None
+
+from deleterequest import deleterequest
+from newRequest import newrequest
+from updaterequest import updaterequest
+
 def changerequest(cursor, id):
     global results
     while 1:
@@ -32,7 +37,7 @@ def changerequest(cursor, id):
                     print(result[0], "has a", result[1])
 
             while 1:
-                type = input("Would you like to make a new feature, update an existing feature, or delete a feature?\n",
+                type = input("Would you like to make a new feature, update an existing feature, or delete a feature?\n"
                              "input 'new', 'update', or 'delete")
                 if type.lower() == 'new':
                     newrequest(cursor,id,streetid,0)
