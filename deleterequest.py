@@ -17,6 +17,7 @@ def deleterequest(cursor, id, placeid, which):
                   "(userid, featureid, changetype, streetid) "
                   "VALUES (%s, %s, %s, %s)")
         cursor.execute(delete, (id, featid, "delete", placeid))
+        print("Change request submitted")
     elif which == 1:
         while 1:
             featid = "Please input the feature id from the above list you would like to update:"
@@ -32,3 +33,4 @@ def deleterequest(cursor, id, placeid, which):
                   "(userid, featureid, changetype, intersectionid) "
                   "VALUES (%s, %s, %s, %s)")
         cursor.execute(delete, (id, featid, "delete", placeid))
+        print("Change request submitted")

@@ -33,6 +33,7 @@ def updaterequest(cursor, id, placeid, which):
                    "(userid, featureid, changetype, streetid, startaddress, endaddress, description) "
                    "VALUES (%s, %s, %s, %s, %s)")
             cursor.execute(new, (id, featid, "update", placeid, desc))
+        print("Change request submitted")
     elif which == 1:
         while 1:
             featid = "Please input the feature id from the above list you would like to update:"
@@ -49,3 +50,4 @@ def updaterequest(cursor, id, placeid, which):
                "(userid, featureid, changetype,intersectionid, description) "
                "VALUES (%s, %s, %s, %s, %s)")
         cursor.execute(new, (id, featid, "update", placeid, desc))
+        print("Change request submitted")
