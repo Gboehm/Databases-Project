@@ -1,7 +1,7 @@
 from mysql.connector import cursor
 from changeRequest import results
 
-def changerequest(cursor, id, placeid, which):
+def updaterequest(cursor, id, placeid, which):
 
     if which == 0:
         while 1:
@@ -14,22 +14,22 @@ def changerequest(cursor, id, placeid, which):
                 break
             else:
                 print("Not a valid feature id from the results. Try again")
-        start = input('If changing/adding start address, input it. Otherwise press enter')
-        end = input('If changing/adding end address, input it. Otherwise press enter')
-        desc = input('Please input updated bike feature description:')
+        start = input('If changing/adding start address, input it. Otherwise press enter\n')
+        end = input('If changing/adding end address, input it. Otherwise press enter\n')
+        desc = input('Please input updated bike feature description:\n')
         if start.isdigit():
             if end.isdigit():
-                new = ("INSERT INTO changerequest "
+                new = ("INSERT INTO change_requests "
                        "(userid, featureid, changetype, streetid, startaddress, endaddress, description) "
                        "VALUES (%s, %s, %s, %s, %s, %s, %s)")
                 cursor.execute(new, (id, featid, "update", placeid, start, end, desc))
             else:
-                new = ("INSERT INTO changerequest "
+                new = ("INSERT INTO change_requests "
                        "(userid, featureid, changetype, streetid, startaddress,description) "
                        "VALUES (%s, %s, %s, %s, %s, %s)")
                 cursor.execute(new, (id, featid, "update", placeid, start, desc))
         else:
-            new = ("INSERT INTO changerequest "
+            new = ("INSERT INTO change_requests "
                    "(userid, featureid, changetype, streetid, startaddress, endaddress, description) "
                    "VALUES (%s, %s, %s, %s, %s)")
             cursor.execute(new, (id, featid, "update", placeid, desc))
@@ -45,7 +45,7 @@ def changerequest(cursor, id, placeid, which):
             else:
                 print("Not a valid feature id from the results. Try again")
         desc = input('Please input updated bike feature description:')
-        new = ("INSERT INTO changerequest "
+        new = ("INSERT INTO change_requests "
                "(userid, featureid, changetype,intersectionid, description) "
                "VALUES (%s, %s, %s, %s, %s)")
         cursor.execute(new, (id, featid, "update", placeid, desc))

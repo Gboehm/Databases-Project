@@ -1,5 +1,5 @@
 from mysql.connector import cursor
-
+from changeRequest import results
 
 def deleterequest(cursor, id, placeid, which):
     if which == 0:
@@ -13,7 +13,7 @@ def deleterequest(cursor, id, placeid, which):
                 break
             else:
                 print("Not a valid feature id from the results. Try again")
-        delete = ("INSERT INTO changerequest "
+        delete = ("INSERT INTO change_requests "
                   "(userid, featureid, changetype, streetid) "
                   "VALUES (%s, %s, %s, %s)")
         cursor.execute(delete, (id, featid, "delete", placeid))
@@ -28,7 +28,7 @@ def deleterequest(cursor, id, placeid, which):
                 break
             else:
                 print("Not a valid feature id from the results. Try again")
-        delete = ("INSERT INTO changerequest "
+        delete = ("INSERT INTO change_requests "
                   "(userid, featureid, changetype, intersectionid) "
                   "VALUES (%s, %s, %s, %s)")
         cursor.execute(delete, (id, featid, "delete", placeid))

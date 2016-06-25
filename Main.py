@@ -1,7 +1,9 @@
 import mysql.connector
 from mysql.connector import errorcode
+import sys
 
 from view import view
+from changeRequest import changerequest
 
 try:
     cnx = mysql.connector.connect(user="root", password="root", host='127.0.0.1', database='projectdb')
