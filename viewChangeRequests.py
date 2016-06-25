@@ -5,11 +5,11 @@ def viewChangeRequests(cnx, cursor, adminID):
     while 1:
         stmt = ("SELECT COUNT(*)"
                 "FROM change_requests "
-                "WHERE approved = NULL")
+                "WHERE approved IS NULL")
         cursor.execute(stmt)
         result = cursor.fetchone()
 
-        print("There are", result, "pending change requests.")
+        print("There are", result[0], "pending change requests.")
 
         while 1:
             op = input("View change request by id or view new requests? Input 'id' or 'new'\n")
@@ -121,17 +121,21 @@ def viewChangeRequests(cnx, cursor, adminID):
                             "OR s.streetid = i.street2 "
                             "WHERE i.intersectionid = %s")
 
-                cursor.execute(stmt, (results[6],))
-                name = "the intersection of " + cursor.fetchone()[0] + " and " + cursor.fetchone()[0]
+                    cursor.execute(stmt, (results[6],))
+                    name = "the intersection of " + cursor.fetchone()[0] + " and " + cursor.fetchone()[0]
 
-                print("User", result[0], "wants to", result[4], "the following information on", name)
+                if results[4] == 'new':
+                    task = 'insert'
+                else:
+                    task = results[4]
+                print("User", results[0], "wants to", task, "the following information on", name)
 
-                if result[7]:
-                    print("Start address:", result[7])
-                if result[8]:
-                    print("End address:", result[8])
-                if result[9]:
-                    print("Description:", result[9])
+                if results[7]:
+                    print("Start address:", results[7])
+                if results[8]:
+                    print("End address:", results[8])
+                if results[9]:
+                    print("Description:", results[9])
 
                 while 1:
                     op = input("Approve this request? Yes or No\n")
@@ -144,7 +148,7 @@ def viewChangeRequests(cnx, cursor, adminID):
                 while 1:
                     op = input("View another request? Yes or No\n")
 
-                    if op.lower() == 'yes' or op.lower == 'no':
+                    if op.lower() == 'yes' or op.lower() == 'no':
                         break
                 if op.lower() == 'no':
                     break
