@@ -38,7 +38,7 @@ def changerequest(cursor, id):
 
             while 1:
                 type = input("Would you like to make a new feature, update an existing feature, or delete a feature?\n"
-                             "input 'new', 'update', or 'delete")
+                             "input 'new', 'update', or 'delete\n")
                 if type.lower() == 'new':
                     newrequest(cursor,id,streetid,0)
                     break
@@ -50,7 +50,7 @@ def changerequest(cursor, id):
                     deleterequest(cursor,id,streetid,0)
                     break
                 print("Not a valid input \n")
-            type = input("Would you like to continue changing? Yes or No")
+            type = input("Would you like to continue changing? Yes or No\n")
             if type.lower() == "no":
                 return
         if temp == "intersection":
@@ -90,7 +90,7 @@ def changerequest(cursor, id):
                 print(result[0])
             while 1:
                 type = input("Would you like to make a new feature, update an existing feature, or delete a feature?\n",
-                             "input 'new', 'update', or 'delete")
+                             "input 'new', 'update', or 'delete\n")
                 if type.lower() == 'new':
                     newrequest(cursor, id, interid, 1)
                     break
@@ -101,6 +101,6 @@ def changerequest(cursor, id):
                     deleterequest(cursor, id, interid,1)
                     break
                 else: print("Not a valid input \n")
-            type = ("Would you like to continue changing? Yes or No");
+            type = ("Would you like to continue changing? Yes or No")
             if type.lower() == "no":
                 return
