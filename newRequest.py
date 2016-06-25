@@ -21,6 +21,7 @@ def newrequest(cursor, id, placeid, which):
                    "(userid, changetype, streetid, description) "
                    "VALUES (%s, %s, %s, %s)")
             cursor.execute(new, (id, "new", placeid, desc))
+        print(id, ", new, ", placeid, ", ", desc)
         print("Change request submitted")
 
     elif which == 1:
