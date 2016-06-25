@@ -19,6 +19,7 @@ def changerequest(cursor, id):
                     break
 
             for result in cursor:
+                streetid = result[5]
                 print("feature id: ", result[4])
                 if result[2]:
                     if result[3]:
@@ -65,12 +66,9 @@ def changerequest(cursor, id):
                         )
 
                 cursor.execute(stmt, (street1, street2))
-                result = cursor.fetchone()
 
-                if result:
-                    interid = result[1]
-                    print("The intersection of", street1, "and", street2, "has the following:")
-                    print(result[0])
+                if cursor.with_rows():
+                    print("The intersection of", street1, "and", street2, "has the following: \n")
                     break
                 else:
                     print("No features found on the intersection of", street1, "and", street2)
@@ -79,6 +77,7 @@ def changerequest(cursor, id):
                     return
 
             for result in cursor:
+                interid = result[1]
                 print(result[0])
             while 1:
                 type = input("Would you like to make a new feature, update an existing feature, or delete a feature?\n",
