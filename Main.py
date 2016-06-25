@@ -37,7 +37,7 @@ else:
     print("Commands:")
 
     commands = ["View",
-                "Insert",
+                "Change",
                 ]
 
     while 1:
@@ -60,10 +60,11 @@ else:
             view(cursor)
 
 
-        elif operation.lower() == 'insert':
-            break
+        elif operation.lower() == 'change':
+            changerequest(cursor, id)
 
         temp = input("Perform another operation?\n")
 
         if temp.lower() == "no":
-            break
+            cnx.close()
+            sys.exit()
