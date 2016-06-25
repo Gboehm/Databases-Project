@@ -21,7 +21,7 @@ def changerequest(cursor, id):
                         "WHERE s.streetname = %s")
 
                 cursor.execute(stmt, (street,))
-                if cursor.with_rows():
+                if cursor.with_rows:
                     break
 
             results = cursor.fetchall()
