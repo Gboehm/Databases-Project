@@ -59,6 +59,16 @@ else:
                 if op.lower() == 'yes':
                     viewChangeRequests(cursor, id)
 
+                    while 1:
+                        temp = input("Perform another operation? Yes or No\n")
+
+                        if temp.lower() == 'yes' or temp.lower() == 'no':
+                           break
+                    if temp.lower() == 'no':
+                        break
+                    else:
+                        continue
+
 
 
             view(cursor)
