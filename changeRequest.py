@@ -50,7 +50,7 @@ def changerequest(cursor, id):
                     deleterequest(cursor,id,streetid,0)
                     break
                 print("Not a valid input \n")
-            type = ("Would you like to continue changing? Yes or No");
+            type = input("Would you like to continue changing? Yes or No")
             if type.lower() == "no":
                 return
         if temp == "intersection":
@@ -76,7 +76,7 @@ def changerequest(cursor, id):
                         )
 
                 cursor.execute(stmt, (street1, street2))
-                if cursor.with_rows():
+                if cursor.with_rows:
                     print("The intersection of", street1, "and", street2, "has the following: \n")
                     break
                 else:
