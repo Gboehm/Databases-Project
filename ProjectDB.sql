@@ -54,13 +54,13 @@ CREATE TABLE IF NOT EXISTS `ProjectDB`.`intersections` (
   CONSTRAINT `street1`
     FOREIGN KEY (`street1`)
     REFERENCES `ProjectDB`.`streets` (`streetid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `street2`
     FOREIGN KEY (`street2`)
     REFERENCES `ProjectDB`.`streets` (`streetid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -85,8 +85,8 @@ CREATE TABLE IF NOT EXISTS `ProjectDB`.`incidents` (
   CONSTRAINT `intersectionid`
     FOREIGN KEY (`intersectionid`)
     REFERENCES `ProjectDB`.`intersections` (`intersectionid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -108,9 +108,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ProjectDB`.`change_requests` (
   `requestid` INT NOT NULL AUTO_INCREMENT,
-  `userid` INT NULL,
-  `featureid` INT NULL,
-  `changetype` VARCHAR(10),
+  `userid` INT NOT NULL,
+  `featureid` INT NOT NULL,
+  `changetype` VARCHAR(10) NOT NULL,
   `streetid` INT NULL,
   `intersectionid` INT NULL,
   `startaddress` VARCHAR(64) NULL,
@@ -160,13 +160,13 @@ CREATE TABLE IF NOT EXISTS `ProjectDB`.`features` (
   CONSTRAINT `streestid`
     FOREIGN KEY (`streetid`)
     REFERENCES `ProjectDB`.`streets` (`streetid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `intersectionsid`
     FOREIGN KEY (`intersectionid`)
     REFERENCES `ProjectDB`.`intersections` (`intersectionid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -181,8 +181,8 @@ CREATE TABLE IF NOT EXISTS `ProjectDB`.`administrators` (
   CONSTRAINT `fk_administrators_users1`
     FOREIGN KEY (`userid`)
     REFERENCES `ProjectDB`.`users` (`userid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
