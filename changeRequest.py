@@ -1,10 +1,5 @@
-results = None
-
-from deleterequest import deleterequest
-from newRequest import newrequest
-from updaterequest import updaterequest
-
-
+from mysql.connector import cursor
+results = null
 def changerequest(cursor, id):
     global results
     while 1:
@@ -21,7 +16,7 @@ def changerequest(cursor, id):
                         "WHERE s.streetname = %s")
 
                 cursor.execute(stmt, (street,))
-                if cursor.with_rows:
+                if cursor.with_rows():
                     break
 
             results = cursor.fetchall()
@@ -37,19 +32,22 @@ def changerequest(cursor, id):
                     print(result[0], "has a", result[1])
 
             while 1:
-                type = input("Would you like to make a new feature, update an existing feature, or delete a feature?\n"
+                type = input("Would you like to make a new feature, update an existing feature, or delete a feature?\n",
                              "input 'new', 'update', or 'delete")
                 if type.lower() == 'new':
-                    newrequest(cursor, id, streetid, 0)
+                    newrequest(cursor,id,streetid,0)
                     break
 
                 if type.lower() == 'update':
-                    updaterequest(cursor, id, streetid, 0)
+                    updaterequest(cursor,id,streetid,0)
                     break
                 if type.lower() == 'delete':
-                    deleterequest(cursor, id, streetid, 0)
+                    deleterequest(cursor,id,streetid,0)
                     break
                 print("Not a valid input \n")
+            type = ("Would you like to continue changing? Yes or No");
+            if type.lower() == "no":
+                return
         if temp == "intersection":
             while 1:
                 street1 = input("Please input a cross street name.\n")
@@ -95,10 +93,9 @@ def changerequest(cursor, id):
                     updaterequest(cursor, id, interid, 1)
                     break
                 if type.lower() == 'delete':
-                    deleterequest(cursor, id, interid, 1)
+                    deleterequest(cursor, id, interid,1)
                     break
-                else:
-                    print("Not a valid input \n")
-        type = ("Would you like to continue changing? Yes or No")
-        if type.lower() == "no":
-            return
+                else: print("Not a valid input \n")
+            type = ("Would you like to continue changing? Yes or No");
+            if type.lower() == "no":
+                return
