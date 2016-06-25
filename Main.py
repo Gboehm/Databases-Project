@@ -2,8 +2,9 @@ import mysql.connector
 from mysql.connector import errorcode
 import sys
 
-from view import view
 from changeRequest import changerequest
+from view import view
+from viewChangeRequests import viewChangeRequests
 
 try:
     cnx = mysql.connector.connect(user="root", password="root", host='127.0.0.1', database='projectdb')
@@ -55,8 +56,9 @@ else:
 
                     if op.lower() == 'yes' or op.lower() == 'no':
                         break
-                #if op.lower() == 'yes':
-                    #View change requests function here
+                if op.lower() == 'yes':
+                    viewChangeRequests(cursor, id)
+
 
 
             view(cursor)
@@ -65,7 +67,11 @@ else:
         elif operation.lower() == 'change':
             changerequest(cursor, id)
 
-        temp = input("Perform another operation?\n")
+        while 1:
+            temp = input("Perform another operation?\n")
+
+            if temp.lower() == 'yes' or temp.lower() == 'no':
+                break
 
         if temp.lower() == "no":
             cnx.close()

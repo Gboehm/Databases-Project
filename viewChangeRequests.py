@@ -12,7 +12,7 @@ def viewChangeRequests(cursor, adminID):
         print("There are", result, "pending change requests.")
 
         while 1:
-            op = input("View change request by id or view new requests? Input 'id' or 'new'")
+            op = input("View change request by id or view new requests? Input 'id' or 'new'\n")
 
             if op.lower() == 'id' or op.lower() == 'new':
                 break
