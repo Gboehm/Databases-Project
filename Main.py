@@ -1,7 +1,7 @@
 import mysql.connector
 from mysql.connector import errorcode
 
-from View import View
+from view import view
 
 try:
     cnx = mysql.connector.connect(user="root", password="root", host='127.0.0.1', database='projectdb')
@@ -57,7 +57,7 @@ else:
                     #View change requests function here
 
 
-            View(cursor)
+            view(cursor)
 
 
         elif operation.lower() == 'insert':

@@ -1,11 +1,8 @@
-from mysql.connector import cursor
-
-
-def View(cursor):
+def view(cursor):
     while 1:
-        type = input("View a Street or an Intersection?\n")
+        temp = input("View a Street or an Intersection?\n")
 
-        if type.lower() == 'street':
+        if temp.lower() == 'street':
             operation = input("View Incidents or Features?\n")
 
             if operation.lower() == "features":
