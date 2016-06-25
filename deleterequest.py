@@ -1,7 +1,6 @@
 from mysql.connector import cursor
-from changeRequest import results
 
-def deleterequest(cursor, id, placeid, which):
+def deleterequest(cursor, id, placeid, which, results):
     if which == 0:
         while 1:
             featid = "Please input the feature id from the above list you would like to update:"

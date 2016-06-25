@@ -1,7 +1,6 @@
 from mysql.connector import cursor
-from changeRequest import results
 
-def updaterequest(cursor, id, placeid, which):
+def updaterequest(cursor, id, placeid, which, results):
 
     if which == 0:
         while 1:

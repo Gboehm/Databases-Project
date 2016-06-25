@@ -6,7 +6,6 @@ from newRequest import newrequest
 from updaterequest import updaterequest
 
 def changerequest(cursor, id):
-    global results
     while 1:
         temp = input("Changing street or intersection? \n")
 
@@ -44,10 +43,10 @@ def changerequest(cursor, id):
                     break
 
                 if type.lower() == 'update':
-                    updaterequest(cursor,id,streetid,0)
+                    updaterequest(cursor,id,streetid,0, results)
                     break
                 if type.lower() == 'delete':
-                    deleterequest(cursor,id,streetid,0)
+                    deleterequest(cursor,id,streetid,0, results)
                     break
                 print("Not a valid input \n")
             type = input("Would you like to continue changing? Yes or No\n")
@@ -89,18 +88,18 @@ def changerequest(cursor, id):
                 interid = result[1]
                 print(result[0])
             while 1:
-                type = input("Would you like to make a new feature, update an existing feature, or delete a feature?\n",
+                type = input("Would you like to make a new feature, update an existing feature, or delete a feature?\n"
                              "input 'new', 'update', or 'delete\n")
                 if type.lower() == 'new':
                     newrequest(cursor, id, interid, 1)
                     break
                 if type.lower() == 'update':
-                    updaterequest(cursor, id, interid, 1)
+                    updaterequest(cursor, id, interid, 1, results)
                     break
                 if type.lower() == 'delete':
-                    deleterequest(cursor, id, interid,1)
+                    deleterequest(cursor, id, interid,1, results)
                     break
                 else: print("Not a valid input \n")
-            type = ("Would you like to continue changing? Yes or No")
+            type = input("Would you like to continue changing? Yes or No")
             if type.lower() == "no":
                 return
