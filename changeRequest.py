@@ -1,6 +1,7 @@
 from mysql.connector import cursor
-
+results = null
 def changerequest(cursor, id):
+    global results
     while 1:
         temp = input("Changing street or intersection? \n")
 
@@ -18,7 +19,8 @@ def changerequest(cursor, id):
                 if cursor.with_rows():
                     break
 
-            for result in cursor:
+            results = cursor.fetchall()
+            for result in results:
                 streetid = result[5]
                 print("feature id: ", result[4])
                 if result[2]:
@@ -48,7 +50,7 @@ def changerequest(cursor, id):
                 street1 = input("Please input a cross street name.\n")
                 street2 = input("Please input the other cross street name.\n")
 
-                stmt = ("SELECT DISTINCT f.description, i.intersectionid "
+                stmt = ("SELECT DISTINCT f.description, i.intersectionid, f.featureid "
                         "FROM features f "
                         "INNER JOIN intersections i "
                         "ON f.intersectionid = i.intersectionid "
@@ -66,7 +68,6 @@ def changerequest(cursor, id):
                         )
 
                 cursor.execute(stmt, (street1, street2))
-
                 if cursor.with_rows():
                     print("The intersection of", street1, "and", street2, "has the following: \n")
                     break
@@ -75,8 +76,8 @@ def changerequest(cursor, id):
                     print("\n Can only make new features for this intersection")
                     newrequest(cursor, id, interid, 1)
                     return
-
-            for result in cursor:
+            results = cursor.fetchall()
+            for result in results:
                 interid = result[1]
                 print(result[0])
             while 1:
